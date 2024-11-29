@@ -3,6 +3,8 @@
     --color-secundario: #D9C6A5; /* Beige */
     --color-fondo: #001427;     /* Azul oscuro */
     --color-texto: #FFFFFF;     /* Blanco */
+    --color-en-proceso: #89CFF0; /* Azul claro */
+    --color-completado: #00FF00; /* Verde */
 }
 
 body {
@@ -20,6 +22,15 @@ body {
     background-color: var(--color-principal);
     padding: 1rem 2rem;
     border-radius: 0 0 12px 12px;
+}
+
+.header .btn-nav {
+    text-decoration: none;
+    color: var(--color-texto);
+    padding: 0.7rem 1.5rem;
+    background-color: var(--color-secundario);
+    border-radius: 8px;
+    font-weight: bold;
 }
 
 .mis-puntos {
@@ -56,4 +67,37 @@ tbody td {
     text-align: center;
     padding: 0.5rem;
     border: 1px solid var(--color-secundario);
+}
+
+tbody td.estado-verificacion {
+    background-color: var(--color-en-proceso);
+}
+
+tbody td.estado-completada {
+    background-color: var(--color-completado);
+}
+
+.pagination {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.pagination .btn-nav {
+    background-color: var(--color-principal);
+    color: var(--color-texto);
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .transacciones {
+        width: 100%;
+    }
 }
