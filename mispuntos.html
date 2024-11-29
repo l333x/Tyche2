@@ -1,50 +1,80 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Puntos - Tyche</title>
-    <link rel="stylesheet" href="css/mispuntos.css">
-</head>
-<body>
-    <header class="header">
-        <h1>TYCHE</h1>
-        <a href="actividades.html" class="perfil-enlace">Volver a Actividades</a>
-    </header>
+document.addEventListener("DOMContentLoaded", () => {
+    const puntosTotales = document.getElementById("puntosTotales");
+    const listaTransacciones = document.getElementById("listaTransacciones");
+    const btnAnterior = document.getElementById("btnAnterior");
+    const btnSiguiente = document.getElementById("btnSiguiente");
 
-    <main>
-        <!-- Sección de Puntos Totales -->
-        <section class="mis-puntos">
-            <h2>Mis Puntos</h2>
-            <div class="puntos-totales">
-                <h3>Puntos Totales</h3>
-                <p id="puntosTotales">0</p>
-            </div>
-        </section>
+    let actividades = JSON.parse(localStorage.getItem("actividades")) || [];
+    let totalPuntos = 0;
 
-        <!-- Sección de Transacciones -->
-        <section class="transacciones">
-            <h3>Transacciones</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Actividad</th>
-                        <th>Día</th>
-                        <th>Puntos</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody id="listaTransacciones">
-                    <!-- Actividades cargadas dinámicamente -->
-                </tbody>
-            </table>
-        </section>
-    </main>
+    // Navegación
+    const actividadesPorPagina = 10;
+    let paginaActual = 1;
 
-    <footer class="footer">
-        <p>&copy; 2024 TYCHE. Todos los derechos reservados.</p>
-    </footer>
+    const cargarTransacciones = () => {
+        const inicio = (paginaActual - 1) * actividadesPorPagina;
+        const fin = inicio + actividadesPorPagina;
+        const actividadesPagina = actividades.slice(inicio, fin);
 
-    <script src="js/mispuntos.js"></script>
-</body>
-</html>
+        listaTransacciones.innerHTML = "";
+
+        actividadesPagina.forEach((actividad) => {
+            const tr = document.createElement("tr");
+
+            const tdNombre = document.createElement("td");
+            tdNombre.textContent = actividad.nombre;
+
+            const tdDia = document.createElement("td");
+            tdDia.textContent = new Date().toLocaleDateString();
+
+            const tdPuntos = document.createElement("td");
+            tdPuntos.textContent = actividad.puntos;
+
+            const tdEstado = document.createElement("td");
+            tdEstado.textContent =
+                actividad.estado === "completada"
+                    ? "Completada"
+                    : actividad.estado === "verificacion"
+                    ? "En Verificación"
+                    : "Pendiente";
+            tdEstado.className =
+                actividad.estado === "completada"
+                    ? "estado-completada"
+                    : actividad.estado === "verificacion"
+                    ? "estado-verificacion"
+                    : "";
+
+            if (actividad.estado === "completada") {
+                totalPuntos += actividad.puntos;
+            }
+
+            tr.appendChild(tdNombre);
+            tr.appendChild(tdDia);
+            tr.appendChild(tdPuntos);
+            tr.appendChild(tdEstado);
+            listaTransacciones.appendChild(tr);
+        });
+
+        puntosTotales.textContent = totalPuntos;
+
+        // Actualizar botones de navegación
+        btnAnterior.disabled = paginaActual === 1;
+        btnSiguiente.disabled = fin >= actividades.length;
+    };
+
+    btnAnterior.addEventListener("click", () => {
+        if (paginaActual > 1) {
+            paginaActual--;
+            cargarTransacciones();
+        }
+    });
+
+    btnSiguiente.addEventListener("click", () => {
+        if (paginaActual * actividadesPorPagina < actividades.length) {
+            paginaActual++;
+            cargarTransacciones();
+        }
+    });
+
+    cargarTransacciones();
+});
