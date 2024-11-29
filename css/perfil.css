@@ -112,54 +112,26 @@ main {
     color: var(--color-secundario);
 }
 
-/* Puntos Totales */
-.puntos-totales {
+/* Puntos Totales y Actividades */
+.puntos-totales, .resumen-actividades {
     background-color: var(--color-secundario);
     padding: 1rem;
     border-radius: 12px;
     width: 100%;
-    max-width: 800px; /* Igual al cuadro de actividades */
+    max-width: 800px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin: 0 auto;
 }
 
-.puntos-totales h3 {
+.puntos-totales h3, .resumen-actividades h3 {
     font-size: 1.2rem;
     color: var(--color-titulo);
     margin-bottom: 0.5rem;
 }
 
-.puntos-totales p {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: var(--color-titulo);
-}
-
-/* Resumen de Actividades */
-.resumen-actividades {
-    background-color: var(--color-secundario);
-    padding: 1rem;
-    border-radius: 12px;
-    width: 100%;
-    max-width: 800px; /* Igual al cuadro de puntos */
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin: 1rem auto 0;
-}
-
-.resumen-actividades h3 {
+.puntos-totales p, .resumen-actividades p {
     font-size: 1.2rem;
-    color: var(--color-titulo);
-    margin-bottom: 0.5rem;
-}
-
-.resumen-actividades p {
-    font-size: 1.2rem;
-    margin: 0.5rem 0;
-}
-
-.resumen-actividades span {
     font-weight: bold;
 }
 
@@ -194,19 +166,19 @@ main {
 }
 
 .avatar[data-avatar="azul"] {
-    background-color: #007BFF; /* Azul */
-}
-
-.avatar[data-avatar="verde"] {
-    background-color: #28A745; /* Verde */
+    background-color: #89CFF0; /* Azul claro */
 }
 
 .avatar[data-avatar="rojo"] {
-    background-color: #DC3545; /* Rojo */
+    background-color: #8B0000; /* Rojo vino */
+}
+
+.avatar[data-avatar="verde"] {
+    background-color: #90EE90; /* Verde claro */
 }
 
 .avatar[data-avatar="amarillo"] {
-    background-color: #FFC107; /* Amarillo */
+    background-color: #FFD700; /* Amarillo patito */
 }
 
 .avatar.seleccionado {
